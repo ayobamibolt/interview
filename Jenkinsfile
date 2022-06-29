@@ -41,7 +41,7 @@ pipeline {
         stage('AWS Lambda'){
 	        steps {
 	        	invokeLambda([awsRegion: 'us-east-1',
-			        functionName: 'function-lambda', 
+			        functionName: 'lambda-handler', 
 			        payload: "{ \"Suspend\": \"true\"}] }", 
 			        synchronous: true, 
 			        useInstanceCredentials: true])
