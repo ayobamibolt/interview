@@ -45,6 +45,7 @@ pipeline {
 			        payload: "{ \"Suspend\": \"true\"}] }", 
 			        synchronous: true, 
 			        useInstanceCredentials: true])
+			echo output
 	          }
           }                    
       
