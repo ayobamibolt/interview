@@ -40,11 +40,10 @@ pipeline {
         stage('AWS Lambda'){
             steps {
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
-                    def output = invokeLambda([
+                    echo output = invokeLambda([
                         functionName: 'lambda-nice-devops-interview', 
                         synchronous: true, 
                         useInstanceCredentials: true])
-                   echo output
                 }
             }
         }                    
