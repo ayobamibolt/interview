@@ -43,8 +43,8 @@ pipeline {
                     {
                         decision = "terraform destroy --auto-approve"
                     }
-                    finalterraform = ${decision}
-                     
+                    echo "decision -->${decision}"
+                    finalterraform = "${decision}"
                 }
 
                     echo "Terraform action is --> ${params.ACTION}"
