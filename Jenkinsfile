@@ -31,7 +31,7 @@ pipeline {
 
         stage("Upload"){
               steps{
-                    withAWS(region:"${region}", credentials:"${aws_credential}){
+                    withAWS(region:"${region}", credentials:"${aws_credential}"){
                       s3Upload(file:"parse_me.txt", bucket:"${bucket}")
                   }    
                }            
