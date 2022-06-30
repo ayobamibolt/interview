@@ -15,7 +15,7 @@ pipeline {
         bucket = "nice-devops-interview"
         region = "us-east-1"
         lambda = "lambda-nice-devops-interview"
-       
+        finalterraform = "terraform"
     }
 
     stages {
@@ -33,33 +33,24 @@ pipeline {
         
         //This is to allow either terrform apply or plan or destroy using "action" as a parameter
         stage ("Terraform Action Apply") {
-            when {expression {params.ACTION == 'apply'}}
-            steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
-           }
-        }
+            if(params.ACTION == 'apply') {
+                finalterraform = "terraform apply --auto-approve"
+            }
+            else if(params.ACTION == 'plan'){
+                finalterraform = "terraform apply --auto-approve"
+            }
+            else
+            {
+                finalterraform = "terraform apply --auto-approve"
+            }
 
-        //This is to allow either terrform apply or plan or destroy using "action" as a parameter
-        stage ("Terraform Action Plan") {
-            when {expression {params.ACTION == 'plan'}}
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action}') 
-           }
-        }
-
-        //This is to allow either terrform apply or plan or destroy using "action" as a parameter
-        stage ("Terraform Action Destroy") {
-            when {expression {params.ACTION == 'destroy'}}
-            steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
+                echo "Terraform action is --> ${params.ACTION}"
+                sh ('${finalterraform}') 
            }
         }
 
         stage("Upload"){
-            when{expression {action=='apply'}}
             steps{
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                       s3Upload(file:"parse_me.txt", bucket:"${bucket}")
