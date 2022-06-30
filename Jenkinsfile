@@ -30,23 +30,23 @@ pipeline {
         }
 
         stage("Upload"){
-              steps{
-                    withAWS(region:"${region}", credentials:"${aws_credential}"){
+            steps{
+                withAWS(region:"${region}", credentials:"${aws_credential}"){
                       s3Upload(file:"parse_me.txt", bucket:"${bucket}")
-                  }    
-               }            
+                }    
+           }            
         }
                             
         stage('AWS Lambda'){
 	        steps {
-			def output = invokeLambda([awsRegion: 'us-east-1',
+			    def output = invokeLambda([awsRegion: 'us-east-1',
 			        functionName: 'lambda-nice-devops-interview', 
 			        payload: "{ \"Suspend\": \"true\"}] }", 
 			        synchronous: true, 
 			        useInstanceCredentials: true])
-			echo output
-	          }
-          }                    
+			    echo output
+	        }
+        }                    
       
                             
     }
