@@ -6,7 +6,6 @@ pipeline {
         bucket = "nice-devops-interview"
         region = "us-east-1"
         lambda = "lambda-nice-devops-interview"
-        output = ""
        
     }
 
@@ -40,11 +39,13 @@ pipeline {
                             
         stage('AWS Lambda'){
             steps {
-                output = invokeLambda([awsRegion: 'us-east-1',
-                    functionName: 'lambda-nice-devops-interview', 
-                    synchronous: true, 
-                    useInstanceCredentials: true])
-                echo output
+                withAWS(region:"${region}", credentials:"${aws_credential}"){
+                    def output = invokeLambda([
+                        functionName: 'lambda-nice-devops-interview', 
+                        synchronous: true, 
+                        useInstanceCredentials: true])
+                   echo output
+                }
             }
         }                    
       
