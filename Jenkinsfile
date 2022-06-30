@@ -42,7 +42,6 @@ pipeline {
             steps {
                 output = invokeLambda([awsRegion: 'us-east-1',
                     functionName: 'lambda-nice-devops-interview', 
-                    payload: "{ \"Suspend\": \"true\"}] }", 
                     synchronous: true, 
                     useInstanceCredentials: true])
                 echo output
