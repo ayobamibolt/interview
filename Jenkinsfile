@@ -6,7 +6,6 @@ pipeline {
         bucket = "nice-devops-interview"
         region = "us-east-1"
         lambda = "lambda-nice-devops-interview"
-        PATH = "/usr/local/bin/:$PATH"
        
     }
 
@@ -19,9 +18,7 @@ pipeline {
         
         stage ("terraform init") {
             steps {
-                sh "
-                PATH=/bin/terraform
-                terraform init"
+                sh ('terraform init')
             }
         }
         
