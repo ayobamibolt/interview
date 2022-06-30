@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        aws_credential = "AWS_CREDNETIAL_ID"
+        aws_credential = "niceAWS"
         repo_url = "MyRepositoryUrl"
         bucket = "nice-devops-interview"
         region = "us-east-1"
