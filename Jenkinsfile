@@ -30,7 +30,7 @@ pipeline {
         }
 
         stage("Upload"){
-            when{action 'apply'}
+            when{expression {action=='apply'}}
             steps{
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                       s3Upload(file:"parse_me.txt", bucket:"${bucket}")
@@ -39,7 +39,7 @@ pipeline {
         }
                             
         stage('AWS Lambda'){
-            when{action 'apply'}
+            when{expression {action=='apply'}}
             steps {
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                     echo output = invokeLambda([
