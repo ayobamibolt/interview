@@ -45,9 +45,9 @@ pipeline {
                     }
                     env.finalterraform = decision
                 }
-
+                echo "Final terra --> ${finalterraform}"
                 echo "Terraform action is --> ${params.ACTION}"
-                sh ('${env.finalterraform}') 
+                sh ('${finalterraform}') 
            }
         }
 
