@@ -6,7 +6,6 @@ pipeline {
         bucket = "nice-devops-interview"
         region = "us-east-1"
         lambda = "lambda-nice-devops-interview"
-        webHook_url = "myWebHookURL"
        
     }
 
@@ -41,7 +40,7 @@ pipeline {
         stage('AWS Lambda'){
 	        steps {
 	        	def output = invokeLambda([awsRegion: 'us-east-1',
-			        functionName: 'lambda-handler', 
+			        functionName: 'lambda-nice-devops-interview', 
 			        payload: "{ \"Suspend\": \"true\"}] }", 
 			        synchronous: true, 
 			        useInstanceCredentials: true])
