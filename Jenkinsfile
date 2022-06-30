@@ -4,9 +4,10 @@ pipeline {
         terraform "terraform 1.2.4"
     }
     parameters {
-        choice: ['apply','plan', 'destroy'],
+        choice(
+        choices: ['apply','plan', 'destroy'],
         description: 'Selection for terraform',
-        name:'ACTION'
+        name:'ACTION')
     }
     environment {
         aws_credential = "niceAWS"
