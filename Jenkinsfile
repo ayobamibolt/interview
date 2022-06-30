@@ -3,6 +3,11 @@ pipeline {
     tools {
         terraform "terraform 1.2.4"
     }
+    parameters {
+        choice: ['apply','plan', 'destroy'],
+        description: 'Selection for terraform',
+        name:'ACTION'
+    }
     environment {
         aws_credential = "niceAWS"
         repo_url = "MyRepositoryUrl"
@@ -19,14 +24,33 @@ pipeline {
           }
         }
         
-        stage ("terraform init") {
+        stage ("Terraform init") {
             steps {
                 sh ('terraform init')
             }
         }
         
         //This is to allow either terrform apply or plan or destroy using "action" as a parameter
-        stage ("terraform Action") {
+        stage ("Terraform Action Apply") {
+            when {expression {params.ACTION == 'apply'}}
+            steps {
+                echo "Terraform action is --> ${action}"
+                sh ('terraform ${action} --auto-approve') 
+           }
+        }
+
+        //This is to allow either terrform apply or plan or destroy using "action" as a parameter
+        stage ("Terraform Action Plan") {
+            when {expression {params.ACTION == 'plan'}}
+            steps {
+                echo "Terraform action is --> ${action}"
+                sh ('terraform ${action}') 
+           }
+        }
+
+        //This is to allow either terrform apply or plan or destroy using "action" as a parameter
+        stage ("Terraform Action Destroy") {
+            when {expression {params.ACTION == 'destroy'}}
             steps {
                 echo "Terraform action is --> ${action}"
                 sh ('terraform ${action} --auto-approve') 
