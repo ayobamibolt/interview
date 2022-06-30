@@ -43,10 +43,11 @@ pipeline {
                     {
                         decision = "terraform destroy --auto-approve"
                     }
-                    withENV('finalterraform = ${decision}'){
-                        echo "Terraform action is --> ${params.ACTION}"
-                        sh ('${env.finalterraform}') 
+                    finalterraform = ${decision}
+                     
                     }
+                    echo "Terraform action is --> ${params.ACTION}"
+                    sh ('${env.finalterraform}')
                 }
            }
         }
