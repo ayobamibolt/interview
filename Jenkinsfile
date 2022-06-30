@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        terraform "terraform 1.2.4"
+    }
     environment {
         aws_credential = "niceAWS"
         repo_url = "MyRepositoryUrl"
