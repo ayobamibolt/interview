@@ -19,7 +19,7 @@ pipeline {
         
         stage ("terraform init") {
             steps {
-                sh " " "
+                sh "
                 PATH=/bin/terraform
                 terraform init"
             }
