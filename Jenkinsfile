@@ -32,7 +32,7 @@ pipeline {
         }
         
         //This is to allow either terrform apply or plan or destroy using "action" as a parameter
-        stage ("Terraform Action Apply") {}
+        stage ("Terraform Action Apply") {
             steps {
                 script {
                     if(params.ACTION == 'apply') {
@@ -46,7 +46,7 @@ pipeline {
                         finalterraform = "terraform destroy --auto-approve"
                     }
                 }
-                
+
                 echo "Terraform action is --> ${params.ACTION}"
                 sh ('${finalterraform}') 
            }
