@@ -4,10 +4,8 @@ pipeline {
         terraform "terraform 1.2.4"
     }
     parameters {
-        choice(
-        choices: ['apply','plan', 'destroy'],
-        description: 'Selection for terraform',
-        name:'ACTION')
+        choice(choices: ['apply','plan', 'destroy'],description: 'Selection for terraform',name:'ACTION')
+        string(default:"", description:"Variable to hold the terraformstring", name:'finalterraform')
     }
     environment {
         aws_credential = "niceAWS"
@@ -15,7 +13,6 @@ pipeline {
         bucket = "nice-devops-interview"
         region = "us-east-1"
         lambda = "lambda-nice-devops-interview"
-        finalterraform = "terraform"
     }
 
     stages {
@@ -34,21 +31,23 @@ pipeline {
         //This is to allow either terrform apply or plan or destroy using "action" as a parameter
         stage ("Terraform Action Apply") {
             steps {
-                script {
+                params.fiinalterraform = script {
+                    string decision=""
                     if(params.ACTION == 'apply') {
-                        finalterraform = "terraform apply --auto-approve"
+                        decision = "terraform apply --auto-approve"
                     }
                     else if(params.ACTION == 'plan'){
-                        finalterraform = "terraform plan"
+                        decision = "terraform plan"
                     }
                     else
                     {
-                        finalterraform = "terraform destroy --auto-approve"
+                        decision = "terraform destroy --auto-approve"
                     }
+                    return decision;
                 }
 
                 echo "Terraform action is --> ${params.ACTION}"
-                sh ('${finalterraform}') 
+                sh ('${params.finalterraform}') 
            }
         }
 
