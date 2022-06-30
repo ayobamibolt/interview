@@ -22,6 +22,7 @@ pipeline {
             }
         }
         
+        //This is to allow either terrform apply or plan or destroy using "action" as a parameter
         stage ("terraform Action") {
             steps {
                 echo "Terraform action is --> ${action}"
