@@ -26,6 +26,7 @@ resource "aws_s3_bucket_policy" "allow_access"{
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Principal": {"AWS": "arn:aws:iam::557414474363:role/lambda-execution-devops-interview""}
       "Sid": "fix",
       "Effect": "Allow",
       "Action": "s3:*",
