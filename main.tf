@@ -10,12 +10,6 @@ output_path = "${path.module}/pythonzip/pyparse.zip"
 
 }
 
-terraform {
-  backend "s3" {
-    bucket = "nice-devops-interview"
-  }
-}
-
 resource "aws_lambda_function" "lambdaTest" {
 filename                       = "${path.module}/pythonzip/pyparse.zip"
 function_name                  = "lambda-nice-devops-interview"
@@ -31,6 +25,7 @@ resource "aws_s3_bucket" "terraform_state_s3" {
 }
 
 resource "aws_s3_bucket_policy" "allow_access"{
+  depends_on = aws_s3_bucket.terraform_state_s3.bucket
   bucket = "nice-devops-interview"
   policy = <<EOF
 {
