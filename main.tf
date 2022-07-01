@@ -15,7 +15,7 @@ resource "aws_lambda_function" "lambdaTest" {
 filename                       = "${path.module}/pythonzip/pyparse.zip"
 function_name                  = "lambda-nice-devops-interview"
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
-handler                        = "file-parser.lambda_handler"
+handler                        = "index.lambda_handler"
 runtime                        = "python3.8"
 
 }
