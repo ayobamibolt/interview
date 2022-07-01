@@ -24,11 +24,8 @@ runtime                        = "python3.8"
 resource "aws_s3_bucket" "terraform_state_s3" {
   bucket = "nice-devops-interview" 
 }
-
-resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
-  bucket = aws_s3_bucket.terraform_state_s3.id
-  policy = <<EOF
-  {
+data "s3_policy-document" "example"{
+{
     "Version": "2012-10-17",
     "Statement": [
       {
@@ -51,7 +48,12 @@ resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
         }
       
     ]
-  }EOF
-  
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+  bucket = aws_s3_bucket.terraform_state_s3.id
+  policy = data.s3_policy-document.example.json
+
 }
 
