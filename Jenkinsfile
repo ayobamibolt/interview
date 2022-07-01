@@ -37,7 +37,7 @@ pipeline {
                         decision = "terraform apply --auto-approve"
                     }
                     else if(params.ACTION == 'plan'){
-                        decision = "terraform plan"
+                        decision = "terraform plan" 
                     }
                     else
                     {
@@ -53,6 +53,7 @@ pipeline {
         }
 
         stage("Upload"){
+            when{expression {return params.ACTION == 'apply'}}
             steps{
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                       s3Upload(file:"parse_me.txt", bucket:"${bucket}")
@@ -61,7 +62,7 @@ pipeline {
         }
                             
         stage('AWS Lambda'){
-            when{expression {action=='apply'}}
+            when{expression {return params.ACTION == 'apply'}}
             steps {
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                     echo output = invokeLambda([
