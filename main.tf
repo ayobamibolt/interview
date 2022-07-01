@@ -10,6 +10,11 @@ output_path = "${path.module}/pythonzip/pyparse.zip"
 
 }
 
+terraform {
+  backend "s3" {
+    bucket = "nice-devops-interview"
+  }
+}
 
 resource "aws_lambda_function" "lambdaTest" {
 filename                       = "${path.module}/pythonzip/pyparse.zip"
