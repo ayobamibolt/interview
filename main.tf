@@ -16,7 +16,7 @@ filename                       = "${path.module}/python/file-parser.zip"
 function_name                  = "lambda-nice-devops-interview"
 source_code_hash               = data.archive_file.zip_the_python_code.output_base64sha256
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
-handler                        = "file-parser.zip.lambda_handler"
+handler                        = "lambda_handler"
 runtime                        = "python3.8"
 
 }
