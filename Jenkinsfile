@@ -29,7 +29,7 @@ pipeline {
         }
         
         //This is to allow either terrform apply or plan or destroy using "action" as a parameter
-        stage ("Terraform Action Apply") {
+        stage ("Terraform Action:${params.ACTION}") {
             steps {
                 script { 
                     string decision=""
