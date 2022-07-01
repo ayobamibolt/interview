@@ -24,3 +24,29 @@ runtime                        = "python3.8"
 resource "aws_s3_bucket" "terraform_state_s3" {
   bucket = "nice-devops-interview" 
 }
+
+resource "aws_iam_policy" "policy" {
+  name        = "test-policy"
+  description = "A policy to allow s3"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SidToOverride",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::nice-devops-interview/*",
+        "arn:aws:s3:::nice-devops-interview"
+      ]
+    }
+  ]
+}
+EOF
+}
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
+  policy_arn = aws_iam_policy.policy.arn
+}
