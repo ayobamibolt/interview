@@ -56,7 +56,7 @@ pipeline {
             when{expression {return params.ACTION == 'apply'}}
             steps{
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
-                      s3Upload(file:"parse_me.txt", bucket:"${bucket}",metadatas:['Key:parseme'])
+                      s3Upload(file:"parse_me.txt", bucket:"${bucket}")
                 }    
            }            
         }
@@ -65,11 +65,12 @@ pipeline {
             when{expression {return params.ACTION == 'apply'}}
             steps {
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
-                    echo output = invokeLambda([
+                    string output = invokeLambda([
                         functionName: 'lambda-nice-devops-interview', 
                         synchronous: true, 
                         useInstanceCredentials: true])
                 }
+                echo "${output}"
             }
         }                    
       
