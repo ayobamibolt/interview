@@ -67,7 +67,8 @@ pipeline {
                 withAWS(region:"${region}", credentials:"${aws_credential}"){
                     echo output = invokeLambda([
                         functionName: 'lambda-nice-devops-interview', 
-                        synchronous: true])
+                        synchronous: true, 
+                        useInstanceCredentials: true])
                 }
             }
         }                    
