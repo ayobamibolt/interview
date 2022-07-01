@@ -19,11 +19,6 @@ runtime                        = "python3.8"
 
 }
 
-#Create s3 bucket
-resource "aws_s3_bucket" "terraform_state_s3" {
-  bucket = "nice-devops-interview" 
-}
-
 resource "aws_s3_bucket_policy" "allow_access"{
   bucket = aws_s3_bucket.terraform_state_s3.id
   policy = <<EOF
@@ -42,4 +37,9 @@ resource "aws_s3_bucket_policy" "allow_access"{
   ]
 }
 EOF
+}
+
+#Create s3 bucket
+resource "aws_s3_bucket" "terraform_state_s3" {
+  bucket = "nice-devops-interview" 
 }
