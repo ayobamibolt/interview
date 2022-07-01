@@ -6,17 +6,17 @@ provider "aws" {
 data "archive_file" "zip_the_python_code" {
 type        = "zip"
 source_dir  = "${path.module}/python/"
-output_path = "${path.module}/python/file-parser.zip"
+output_path = "${path.module}/python/pyparse.zip"
 
 }
 
 
 resource "aws_lambda_function" "lambdaTest" {
-filename                       = "${path.module}/python/file-parser.zip"
+filename                       = "${path.module}/python/pyparse.zip"
 function_name                  = "lambda-nice-devops-interview"
 source_code_hash               = data.archive_file.zip_the_python_code.output_base64sha256
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
-handler                        = "index.lambda_handler"
+handler                        = "file-parser.lambda_handler"
 runtime                        = "python3.8"
 
 }
