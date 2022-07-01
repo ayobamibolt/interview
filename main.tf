@@ -20,7 +20,6 @@ resource "aws_lambda_function" "lambda-nice-devops-interview" {
 filename                       = "${path.module}/python/file-parser.zip"
 function_name                  = "lambda-nice-devops-interview"
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
-handler                        = "index.lambda_handler"
 runtime                        = "python3.8"
 
 }
