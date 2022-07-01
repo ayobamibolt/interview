@@ -18,7 +18,7 @@ output_path = "file-parser.zip"
 
 resource "aws_lambda_function" "lambda-nice-devops-interview" {
 filename                       = "file-parser.zip"
-function_name                  = "lambda-nice-devops-interview"
+function_name                  = "lambdaTest"
 source_code_hash               = data.archive_file.zip_the_python_code.output_base64sha256
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
 handler                        = "lambda_function.lambda_handler"
