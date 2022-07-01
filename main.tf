@@ -11,15 +11,17 @@ resource "aws_s3_bucket" "terraform_state_s3" {
 data "archive_file" "zip_the_python_code" {
 type        = "zip"
 source_dir  = "${path.module}/python/"
-output_path = "${path.module}/python/file-parser.zip"
+output_path = "file-parser.zip"
 
 }
 
 
 resource "aws_lambda_function" "lambda-nice-devops-interview" {
-filename                       = "${path.module}/python/file-parser.zip"
+filename                       = "file-parser.zip"
 function_name                  = "lambda-nice-devops-interview"
+source_code_hash               = data.archive_file.zip_the_python_code.output_base64sha256
 role                           = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
+handler                        = "lambda_function.lambda_handler"
 runtime                        = "python3.8"
 
 }
