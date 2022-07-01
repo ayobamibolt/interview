@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "terraform_state_s3" {
   bucket = "nice-devops-interview" 
 }
 data "s3_policy-document" "example"{
-{
+
     "Version": "2012-10-17",
     "Statement": [
       {
@@ -48,7 +48,7 @@ data "s3_policy-document" "example"{
         }
       
     ]
-  }
+  
 }
 
 resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
