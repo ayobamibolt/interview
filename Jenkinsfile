@@ -68,7 +68,8 @@ pipeline {
                     string output = invokeLambda([
                         functionName: 'lambda-nice-devops-interview', 
                         synchronous: true, 
-                        useInstanceCredentials: true])
+                        useInstanceCredentials: true,
+                        returnValueAsString: true])
                 }
                 echo "${output}"
             }
