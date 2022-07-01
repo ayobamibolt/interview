@@ -4,7 +4,7 @@ s3_client = boto3.resource("s3")
 S3_BUCKET = 'nice-devops-interview'
 
 def lambda_handler(event, context):
-  object_key = "parseme"  # replace object key
+  object_key = "parse_me.txt"  # replace object key
   file_content = (s3_client.Object(
       bucket_name=S3_BUCKET, key=object_key)).get()["Body"].read()
   print(file_content)
