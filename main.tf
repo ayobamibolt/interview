@@ -27,19 +27,12 @@ resource "aws_s3_bucket" "terraform_state_s3" {
 
 resource "aws_s3_bucket_policy" "allow_access"{
   bucket = "nice-devops-interview"
-  policy = aws_iam_policy.policy
-}
-
-resource "aws_iam_policy" "policy" {
-  name        = "test-policy"
-  description = "A policy to allow s3"
-
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "SidToOverride",
+      "Sid": "fix",
       "Effect": "Allow",
       "Action": "s3:*",
       "Resource": [
