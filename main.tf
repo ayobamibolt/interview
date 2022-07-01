@@ -25,6 +25,11 @@ resource "aws_s3_bucket" "terraform_state_s3" {
   bucket = "nice-devops-interview" 
 }
 
+resource "aws_s3_bucket_policy" "allow_access"{
+  bucket = "nice-devops-interview"
+  policy = aws_iam_policy.policy
+}
+
 resource "aws_iam_policy" "policy" {
   name        = "test-policy"
   description = "A policy to allow s3"
@@ -45,8 +50,4 @@ resource "aws_iam_policy" "policy" {
   ]
 }
 EOF
-}
-resource "aws_iam_role_policy_attachment" "test-attach" {
-  role       = "arn:aws:iam::557414474363:role/lambda-execution-devops-interview"
-  policy_arn = aws_iam_policy.policy.arn
 }
